@@ -1,0 +1,17 @@
+https://www.cloudera.com/documentation/enterprise/5-11-x/topics/cm_mc_service_config_overview.html
+
+cloudera manager 启动的服务 的配置文件不在/etc/hadoop/conf/hdfs-site.xml， 为client服务。
+而是在 /opt/cm-5.11.0/run/cloudera-scm-agent/process/905-yarn-NODEMANAGER/core-site.xml
+
+配置文件分离的好处：
+1：安全，密码client不可见。
+2：A service that depends on another service may deploy with customized configuration. For example, to get good HDFS read performance, Impala needs a specialized version of the HDFS client configuration, which may be harmful to a generic client. This is achieved by separating the HDFS configuration for the Impala daemons (stored in the per-process directory mentioned above) from that of the generic client (/etc/hadoop/conf).
+3：简单可读 Client configuration files are much smaller and more readable. This also avoids confusing non-administrator Hadoop users with irrelevant server-side properties.
+
+
+默认是新布局。
+
+只有 cloudera mananger enterpise 才有。
+When a configuration property has been set to a value different from the default, a Reset to the default value link displays.
+
+https://www.cloudera.com/documentation/enterprise/5-11-x/topics/cm_mc_autoconfig.html
